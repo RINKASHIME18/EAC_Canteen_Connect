@@ -1,0 +1,212 @@
+/* Main dashboard styles using the global palette from base.css */
+
+.dashboard-wrap {
+  width: 90%;
+  max-width: 900px;
+  background: var(--white);
+  padding: 50px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  margin: 60px auto;
+  border: 1px solid rgba(128, 0, 0, 0.1);
+}
+
+.dashboard-title {
+  color: var(--primary);
+  text-align: center;
+  font-size: 2.8rem;
+  margin: 0 0 15px 0;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.dashboard-divider {
+  border: none;
+  border-top: 2px solid var(--primary);
+  margin-bottom: 40px;
+  opacity: 0.2;
+}
+
+.status-card {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  border-radius: var(--radius);
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  color: var(--white);
+  margin-bottom: 40px;
+  box-shadow: 0 20px 25px -5px rgba(128, 0, 0, 0.2);
+}
+
+.status-icon {
+  opacity: 1;
+}
+
+.status-content h2 {
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  font-size: 2.2rem;
+  letter-spacing: -0.01em;
+}
+
+.status-highlight {
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 8px;
+  text-decoration-thickness: 3px;
+  color: var(--white);
+}
+
+.status-content p {
+  margin: 0;
+  font-size: 1.2rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.status-content strong {
+  font-weight: 800;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.action-card {
+  background-color: var(--white);
+  border: 1px solid rgba(0, 31, 63, 0.1);
+  border-radius: 20px;
+  padding: 35px 20px;
+  text-align: center;
+  text-decoration: none;
+  color: var(--primary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: var(--shadow-md);
+}
+
+.action-card h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.action-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
+
+.action-card:hover h3 {
+  color: var(--primary);
+}
+
+.star-group {
+  font-size: 1.8rem;
+  display: flex;
+  gap: 4px;
+}
+
+.star-filled { color: var(--primary-light); }
+.star-empty { color: #d1d1d6; }
+
+.activity-feed {
+  background-color: var(--bg);
+  border: 1px solid rgba(0, 31, 63, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  color: var(--text-main);
+  min-height: 100px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.activity-feed h3 {
+  margin: 0 0 20px 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.activity-item {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  border-bottom: 1px solid rgba(0, 31, 63, 0.05);
+  transition: all 0.3s ease;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-item:hover {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+}
+
+.activity-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.activity-icon-wrap.concern { background: rgba(210, 28, 28, 0.1); color: #d21c1c; }
+.activity-icon-wrap.rating { background: rgba(255, 204, 0, 0.1); color: #ffcc00; }
+.activity-icon-wrap.suggestion { background: rgba(0, 31, 63, 0.1); color: var(--secondary); }
+
+.activity-info {
+  flex-grow: 1;
+}
+
+.activity-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+  font-size: 0.85rem;
+}
+
+.activity-type {
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.activity-user {
+  color: var(--text-muted);
+}
+
+.activity-time {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.activity-text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
+@media (max-width: 768px) {
+  .dashboard-wrap { padding: 30px 20px; margin: 30px auto; }
+  .action-grid { grid-template-columns: 1fr; }
+  .status-card { flex-direction: column; text-align: center; padding: 30px; }
+}

@@ -1,0 +1,67 @@
+{% extends 'canteen/base.html' %}
+{% load static %}
+
+{% block title %}Report a Concern - EAC Canteen Connect{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'canteen/css/report.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="report-card">
+        <div class="header-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8 a3 3 0 1 1-5.8-1.6"></path></svg>
+            <h1>Report a Concern</h1>
+        </div>
+
+        <form method="POST" class="form-grid">
+            {% csrf_token %}
+            <div class="col-left">
+                <div class="input-group">
+                    <input type="text" name="reporter_name" class="input-field" placeholder="Name (Optional)">
+                </div>
+                <div class="input-group">
+                    <input type="text" name="grade_section" class="input-field" placeholder="Grade/Section" required>
+                </div>
+                <div class="input-group">
+                    <select name="stall" class="input-field" required style="background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.2);">
+                        <option value="" disabled selected>Select Stall</option>
+                        {% for val, label in stalls %}
+                            <option value="{{ val }}" style="color: black;">{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 600;">Gender</label>
+                    <div style="display: flex; gap: 20px;">
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="radio" name="gender" value="Female" required> Female
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                            <input type="radio" name="gender" value="Male"> Male
+                        </label>
+                    </div>
+                </div>
+
+                <div class="toggle-group">
+                    <span>Make Anonymous</span>
+                    <label class="switch">
+                        <input type="checkbox" name="is_anonymous">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-right">
+                <textarea name="concern_text" class="input-field" placeholder="Type your concerns?" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Your Concern</button>
+        </form>
+        
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'home' %}" style="color: var(--primary); text-decoration: none; font-weight: 600;">← Back to Home</a>
+        </div>
+    </div>
+{% endblock %}

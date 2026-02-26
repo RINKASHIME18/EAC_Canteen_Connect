@@ -1,0 +1,46 @@
+{% extends 'canteen/base.html' %}
+{% load static %}
+
+{% block title %}My Reports - EAC Canteen Connect{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'canteen/css/report.css' %}">
+    <link rel="stylesheet" href="{% static 'canteen/css/history.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="history-card">
+        <div class="history-header">
+            <h1>Your Submitted Reports</h1>
+            <a href="{% url 'report_concern' %}" class="submit-btn" style="grid-column: auto; margin-top: 0; padding: 12px 25px; font-size: 1rem;">New Report</a>
+        </div>
+
+        {% if reports %}
+            <div class="report-list">
+                {% for report in reports %}
+                    <div class="report-item">
+                        <div class="report-meta">
+                            <span>Stall: {{ report.stall }}</span>
+                            <span>{{ report.created_at|date:"F d, Y H:i" }}</span>
+                        </div>
+                        <div class="report-content">
+                            <p>{{ report.concern_text }}</p>
+                        </div>
+                        <div class="report-footer">
+                            <span class="report-id">Report #{{ report.id }}</span>
+                            <span class="status-badge status-{{ report.status|lower }}">
+                                {{ report.status }}
+                            </span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 40px;">
+                <p style="font-size: 1.2rem; opacity: 0.7;">You haven't submitted any reports yet.</p>
+            </div>
+        {% endif %}
+
+        <a href="{% url 'home' %}" class="back-link">← Back to Dashboard</a>
+    </div>
+{% endblock %}

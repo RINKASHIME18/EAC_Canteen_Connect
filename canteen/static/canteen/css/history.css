@@ -1,0 +1,129 @@
+/* History styles using global palette */
+
+.history-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 40px;
+    padding: 50px;
+    width: 90%;
+    max-width: 900px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    margin: 40px auto;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.history-header h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    margin: 0;
+    color: var(--primary);
+}
+
+.report-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.report-item {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(0, 31, 63, 0.1);
+    border-radius: 20px;
+    padding: 25px;
+    transition: all 0.3s ease;
+}
+
+.report-item:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: translateX(10px);
+    border-color: var(--primary);
+}
+
+.report-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--secondary);
+    opacity: 0.8;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.report-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0 0 20px 0;
+    color: var(--text-main);
+}
+
+.report-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.report-id {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--accent);
+}
+
+.status-badge {
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.status-received { background: #e2e8f0; color: #475569; }
+.status-investigating { background: #fef3c7; color: #92400e; }
+.status-resolved { background: rgba(40, 167, 69, 0.1); color: #28a745; }
+.status-closed { background: #fee2e2; color: #991b1b; }
+.status-pending {
+    background: rgba(128, 0, 0, 0.1);
+    color: var(--primary);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    transform: translateX(-5px);
+    color: var(--primary-light);
+}
+
+@media (max-width: 768px) {
+    .history-card {
+        padding: 30px 20px;
+        margin: 20px auto;
+        border-radius: 24px;
+    }
+    .history-header h1 {
+        font-size: 1.7rem;
+    }
+    .report-item:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,68 @@
+{% extends 'canteen/base.html' %}
+{% load static %}
+
+{% block title %}Suggestions Box - EAC Canteen Connect{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'canteen/css/suggestion.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="suggestion-container">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="suggestion-header">
+                <div class="header-title-wrap">
+                    <div class="lightbulb-icon">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .5 2.2 1.5 3.1.7.9 1.2 1.7 1.5 2.5h6Z"></path>
+                            <path d="M9 18h6"></path>
+                            <path d="M10 22h4"></path>
+                            <path d="m2 8h2"></path>
+                            <path d="m20 8h2"></path>
+                            <path d="m6.34 3.46.71.71"></path>
+                            <path d="m16.95 16.95.71.71"></path>
+                            <path d="m3.46 16.95.71.71"></path>
+                            <path d="m16.95 3.46.71.71"></path>
+                        </svg>
+                    </div>
+                    <h1>SUGGESTIONS BOX</h1>
+                </div>
+            </div>
+
+            <div class="suggestion-card">
+                <div class="input-section">
+                    <span class="label-text">Select Stall:</span>
+                    <div class="stall-select-wrap">
+                        <select name="stall" class="stall-select" required>
+                            <option value="" disabled selected>Select a stall</option>
+                            {% for val, label in stalls %}
+                                <option value="{{ val }}">{{ label|upper }}</option>
+                            {% endfor %}
+                        </select>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+                    </div>
+                </div>
+
+                <div class="idea-banner">
+                    <span>Share your ideas for new meals, snacks or improvements...</span>
+                    <div class="arrow-down">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                    </div>
+                </div>
+
+                <div class="input-section">
+                    <textarea name="suggestion_text" class="suggestion-area" placeholder="Food Quality:&#10;Service:&#10;&#10;Type your suggestions here..." required></textarea>
+                </div>
+            </div>
+
+            <div class="submit-wrap">
+                <button type="submit" class="submit-btn-large">SUBMIT YOUR SUGGESTIONS!</button>
+            </div>
+        </form>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="{% url 'home' %}" class="back-link">← Back to DashBoard</a>
+        </div>
+    </div>
+{% endblock %}

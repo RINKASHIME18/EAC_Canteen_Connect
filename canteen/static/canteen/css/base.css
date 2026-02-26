@@ -1,0 +1,337 @@
+:root {
+  --primary: #800000;       /* Maroon */
+  --primary-light: #d21c1c; /* Red */
+  --secondary: #001f3f;     /* Navy */
+  --accent: #72a1c1;        /* Steel Blue */
+  --bg: #fff5e6;            /* Cream/Beige */
+  --white: #ffffff;
+  --text-main: #001f3f;     /* Navy for better readability on cream */
+  --text-muted: #4a4a4a;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+  --radius: 24px;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.8);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Outfit", sans-serif;
+  background-color: var(--bg);
+  color: var(--text-main);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.main-header {
+  background: linear-gradient(135deg, var(--primary) 0%, #400000 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(255, 77, 0, 0.2);
+  width: 100%;
+}
+
+.main-header .site-title-shs,
+.main-header .site-title-main {
+  color: var(--white);
+}
+
+.main-header .login-link {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 20px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.main-header .login-link:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.main-header .user-profile {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.main-header .profile-icon {
+  border-color: var(--white);
+}
+
+.auth-header {
+  justify-content: center !important;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-img {
+  height: 50px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.site-title-shs {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+}
+
+.site-title-main {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: -0.02em;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary);
+  padding: 6px 12px;
+  background: rgba(139, 26, 26, 0.05);
+  border-radius: 40px;
+  position: relative;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  padding: 10px 0;
+  min-width: 120px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.user-profile:hover .profile-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  display: block;
+  transition: background 0.2s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(139, 26, 26, 0.05);
+  color: var(--primary);
+}
+
+.profile-icon {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.user-greeting {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.login-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .logo-img { height: 40px; }
+  .site-title-shs, .site-title-main { font-size: 0.9rem; }
+  .header-left { gap: 10px; }
+  .user-greeting { display: none; }
+}
+
+@media (max-width: 480px) {
+  .site-title-shs { display: none; }
+  .header-text { justify-content: center; }
+}
+
+/* Animation Helpers */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Footer Styles */
+.site-footer {
+  background: var(--primary);
+  color: var(--white);
+  padding: 30px 5% 20px;
+  margin-top: auto;
+}
+
+.footer-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.school-info {
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-logo {
+  height: 60px;
+  width: auto;
+}
+
+.school-text h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.school-text h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.school-text p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--white);
+}
+
+.contact-social {
+  align-items: center;
+  gap: 15px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  color: var(--white);
+  transition: opacity 0.3s ease;
+}
+
+.social-icons a:hover {
+  opacity: 0.7;
+}
+
+.footer-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.address-copyright {
+  align-items: flex-end;
+  text-align: right;
+  gap: 5px;
+}
+
+.address {
+  margin: 0;
+  font-size: 0.9rem;
+  max-width: 300px;
+  color: var(--white);
+}
+
+.copyright {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+@media (max-width: 992px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  
+  .school-info {
+    flex-direction: column;
+  }
+  
+  .address-copyright {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .school-text h3 { font-size: 1.2rem; }
+  .school-text h4 { font-size: 1rem; }
+}

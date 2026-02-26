@@ -1,0 +1,79 @@
+{% extends 'canteen/base.html' %}
+{% load static %}
+
+{% block title %}Ratings - EAC Canteen Connect{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'canteen/css/ratings.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="ratings-container">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="ratings-header">
+                <div class="ratings-title-wrap">
+                    <div style="display: flex; gap: 5px;">
+                        <span style="color: #c54b4b; font-size: 1.5rem;">★</span>
+                        <span style="color: #c54b4b; font-size: 1.5rem;">★</span>
+                        <span style="color: #c54b4b; font-size: 1.5rem;">★</span>
+                    </div>
+                    <h1>RAITINGS:</h1>
+                </div>
+            </div>
+
+            <div class="rating-card">
+                <div class="input-section">
+                    <span class="label-text">Select Stall:</span>
+                    <div class="stall-select-wrap">
+                        <select name="stall" class="stall-select">
+                            {% for val, label in stalls %}
+                                <option value="{{ val }}">{{ label|upper }}</option>
+                            {% endfor %}
+                        </select>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+                    </div>
+                </div>
+
+                <div class="star-rating-wrap">
+                    <div class="stars">
+                        <!-- Reverse order for CSS sibling selector trick -->
+                        <input type="radio" name="rating" id="star5" value="5" class="star-input" checked><label for="star5" class="star-label">★</label>
+                        <input type="radio" name="rating" id="star4" value="4" class="star-input"><label for="star4" class="star-label">★</label>
+                        <input type="radio" name="rating" id="star3" value="3" class="star-input"><label for="star3" class="star-label">★</label>
+                        <input type="radio" name="rating" id="star2" value="2" class="star-input"><label for="star2" class="star-label">★</label>
+                        <input type="radio" name="rating" id="star1" value="1" class="star-input"><label for="star1" class="star-label">★</label>
+                    </div>
+                    <div class="rating-subtext">Rate your purchase food*</div>
+                </div>
+
+                <div class="input-section">
+                    <span class="label-text">Type here the food:</span>
+                    <input type="text" name="food_name" class="text-input-styled" required>
+                </div>
+
+                <div class="input-section">
+                    <span class="label-text">Share your thoughts:</span>
+                    <span style="font-size: 0.9rem; opacity: 0.8;">Food Quality</span>
+                    <textarea name="feedback" class="feedback-area" placeholder="What did you like or dislike about this food?" required></textarea>
+                </div>
+
+                <label class="anonymous-toggle">
+                    <input type="checkbox" name="is_anonymous">
+                    <span>Send Anonymously</span>
+                </label>
+            </div>
+
+            <div class="submit-wrap">
+                <button type="submit" class="submit-btn-large">SUBMIT YOUR RAITINGS!</button>
+            </div>
+        </form>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="{% url 'home' %}" style="color: var(--primary); text-decoration: none; font-weight: 700;">← Back to DashBoard</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

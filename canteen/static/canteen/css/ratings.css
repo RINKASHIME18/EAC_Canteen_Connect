@@ -1,0 +1,213 @@
+/* Ratings styles using global palette */
+
+.ratings-container {
+    padding: 30px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ratings-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.ratings-title-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.ratings-title-wrap svg {
+    width: 35px;
+    height: 35px;
+    color: var(--primary);
+}
+
+.ratings-title-wrap h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--primary);
+    margin: 0;
+}
+
+.stall-select-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.stall-select {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 31, 63, 0.1);
+    border-radius: 12px;
+    padding: 15px 45px 15px 20px;
+    font-family: inherit;
+    font-weight: 800;
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+.stall-select:focus {
+    border-color: var(--primary);
+    background: white;
+    outline: none;
+}
+
+.stall-select-wrap svg {
+    position: absolute;
+    right: 20px;
+    color: var(--primary);
+    pointer-events: none;
+}
+
+.rating-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+    margin-bottom: 30px;
+}
+
+.star-rating-wrap {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.stars {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+}
+
+.star-input {
+    display: none;
+}
+
+.star-label {
+    font-size: 3rem;
+    color: rgba(0, 31, 63, 0.1);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.star-label:hover,
+.star-label:hover ~ .star-label,
+.star-input:checked ~ .star-label {
+    color: #ffcc00;
+}
+
+.rating-subtext {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--secondary);
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.label-text {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--primary);
+}
+
+.text-input-styled {
+    width: 100%;
+    padding: 15px 20px;
+    border: 1px solid rgba(0, 31, 63, 0.1);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+    font-size: 1.1rem;
+    outline: none;
+    transition: all 0.2s;
+    color: var(--text-main);
+}
+
+.text-input-styled:focus {
+    border-color: var(--primary);
+    background: white;
+}
+
+.feedback-area {
+    width: 100%;
+    min-height: 120px;
+    padding: 15px 20px;
+    border: 1px solid rgba(0, 31, 63, 0.1);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    font-family: inherit;
+    font-size: 1.1rem;
+    resize: vertical;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.2s;
+    color: var(--text-main);
+}
+
+.feedback-area:focus {
+    border-color: var(--primary);
+    background: white;
+}
+
+.anonymous-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--secondary);
+}
+
+.submit-btn-large {
+    width: 100%;
+    background: var(--primary);
+    color: var(--white);
+    border: none;
+    padding: 20px;
+    border-radius: 50px;
+    font-size: 1.3rem;
+    font-weight: 900;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(128, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.submit-btn-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(128, 0, 0, 0.3);
+    background: var(--primary-light);
+}
+
+@media (max-width: 768px) {
+    .ratings-container {
+        padding: 20px 15px;
+    }
+    .ratings-header {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    .submit-btn-large {
+        font-size: 1.5rem;
+        width: 100%;
+    }
+}
