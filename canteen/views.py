@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Category, MenuItem, Report, Rating, Suggestion, STALL_CHOICES
+from .utils import contains_profanity
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -49,6 +50,10 @@ def suggestion_view(request):
         stall = request.POST.get('stall')
         suggestion_text = request.POST.get('suggestion_text')
         
+        if contains_profanity(suggestion_text):
+            messages.error(request, "Your suggestion contains unprofessional language. Please revise it.")
+            return render(request, 'canteen/suggestion_box.html', {'stalls': STALL_CHOICES, 'suggestion_text': suggestion_text, 'selected_stall': stall})
+
         Suggestion.objects.create(
             user=request.user,
             stall=stall,
@@ -68,6 +73,16 @@ def rate_view(request):
         feedback = request.POST.get('feedback')
         is_anonymous = request.POST.get('is_anonymous') == 'on'
         
+        if contains_profanity(food_name) or contains_profanity(feedback):
+            messages.error(request, "Your rating contains unprofessional language. Please revise it.")
+            return render(request, 'canteen/ratings.html', {
+                'stalls': STALL_CHOICES, 
+                'food_name': food_name, 
+                'feedback': feedback, 
+                'selected_stall': stall,
+                'rating': rating_val
+            })
+
         Rating.objects.create(
             user=request.user,
             stall=stall,
@@ -91,6 +106,17 @@ def report_concern(request):
         is_anonymous = request.POST.get('is_anonymous') == 'on'
         concern_text = request.POST.get('concern_text')
         
+        if contains_profanity(concern_text) or (reporter_name and contains_profanity(reporter_name)):
+            messages.error(request, "Your concern contains unprofessional language. Please revise it.")
+            return render(request, 'canteen/report_form.html', {
+                'stalls': STALL_CHOICES,
+                'reporter_name': reporter_name,
+                'grade_section': grade_section,
+                'selected_stall': stall,
+                'gender': gender,
+                'concern_text': concern_text
+            })
+
         Report.objects.create(
             user=request.user,
             reporter_name=reporter_name,
