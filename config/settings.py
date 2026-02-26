@@ -119,3 +119,4 @@ STATIC_URL = 'static/'
 
 # Authentication Redirect
 LOGIN_URL = 'login'
+CSRF_TRUSTED_ORIGINS = ['https://eac-canteen-connect-production.up.railway.app']
