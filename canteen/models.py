@@ -5,7 +5,7 @@ STALL_CHOICES = [
     ("Maren's Food Cart", "Maren's Food Cart"),
     ('Rhoxy Canteen', 'Rhoxy Canteen'),
     ('M.D Mangubat Canteen', 'M.D Mangubat Canteen'),
-    ('Stall 4', 'Stall 4'),
+    ('Mann Food House', 'Mann Food House'),
     ('Goldfranz Canteen', 'Goldfranz Canteen'),
     ('K-Pop House', 'K-Pop House'),
     ('kCairo Johns Food Hub', 'kCairo Johns Food Hub'),

@@ -24,10 +24,10 @@
                     <input type="text" name="grade_section" class="input-field" placeholder="Grade/Section" required>
                 </div>
                 <div class="input-group">
-                    <select name="stall" class="input-field" required style="background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <select name="stall" class="input-field" required>
                         <option value="" disabled selected>Select Stall</option>
                         {% for val, label in stalls %}
-                            <option value="{{ val }}" style="color: black;">{{ label }}</option>
+                            <option value="{{ val }}">{{ label }}</option>
                         {% endfor %}
                     </select>
                 </div>
