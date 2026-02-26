@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-f_bcc@9r*gdovabo=q=486artnhcd4tg23jta=!+fk25z2ox@)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['eac-canteen-connect-production.up.railway.app', 'localhost', '127.0.0.1']
 
 
 # Application definition
