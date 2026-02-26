@@ -18,7 +18,7 @@ def home(request):
             activities.append({
                 'type': 'Concern',
                 'user': 'Anonymous' if r.is_anonymous else r.user.username,
-                'content': r.concern_text[:100] + ('...' if len(r.concern_text) > 100 else ''),
+                'content': f"For {r.stall}: {r.concern_text[:100]}" + ('...' if len(r.concern_text) > 100 else ''),
                 'created_at': r.created_at,
                 'icon': 'alert-circle'
             })
