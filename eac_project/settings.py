@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-f_bcc@9r*gdovabo=q=486artnhcd4tg23jta=!+fk25z2ox@)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['eac-canteen-connect-production.up.railway.app', '127.0.0.1']
+ALLOWED_HOSTS = [
+    'eac-canteen-connect-production.up.railway.app',
+    'eaccanteenconnect-production.up.railway.app',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -119,4 +123,7 @@ STATIC_URL = 'static/'
 
 # Authentication Redirect
 LOGIN_URL = 'login'
-CSRF_TRUSTED_ORIGINS = ['https://eac-canteen-connect-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://eac-canteen-connect-production.up.railway.app',
+    'https://eaccanteenconnect-production.up.railway.app'
+]
