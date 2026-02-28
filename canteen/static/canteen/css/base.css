@@ -622,6 +622,13 @@ body::before {
   transform: translateY(0);
 }
 
+@media (max-width: 480px) {
+  .notif-dropdown {
+    right: -70px; /* Offset to center better on small screens */
+    width: 290px; /* Slightly narrower to fit smaller phones */
+  }
+}
+
 .notif-header {
   padding: 15px;
   font-weight: 800;
