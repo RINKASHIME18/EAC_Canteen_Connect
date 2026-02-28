@@ -20,18 +20,61 @@
                 </div>
             </a>
         </div>
+
+        {% if user.is_authenticated and not user.is_staff and request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' %}
+        <nav class="header-nav">
+            <a href="{% url 'home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Dashboard</a>
+            <a href="{% url 'report_concern' %}" class="nav-link {% if request.resolver_match.url_name == 'report_concern' %}active{% endif %}">Report a Concern</a>
+            <a href="{% url 'rate_view' %}" class="nav-link {% if request.resolver_match.url_name == 'rate_view' %}active{% endif %}">Ratings</a>
+            <a href="{% url 'suggestion_view' %}" class="nav-link {% if request.resolver_match.url_name == 'suggestion_view' %}active{% endif %}">Suggestions Box</a>
+            <a href="{% url 'report_history' %}" class="nav-link {% if request.resolver_match.url_name == 'report_history' %}active{% endif %}">Your Reports</a>
+        </nav>
+        {% endif %}
+
         {% if request.resolver_match.url_name != 'login' and request.resolver_match.url_name != 'register' %}
         <div class="header-right">
             {% if user.is_authenticated %}
+                {% if user.is_staff %}
+                <div class="notification-wrapper">
+                    <div class="notification-bell" id="notifBell">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        {% if unread_count > 0 %}
+                            <span class="notif-badge">{{ unread_count }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="notif-dropdown" id="notifDropdown">
+                        <div class="notif-header">Recent Activity</div>
+                        <div class="notif-list">
+                            {% if unread_notifications %}
+                                {% for notif in unread_notifications %}
+                                <div class="notif-item {% if notif.is_read %}read{% endif %}" data-type="{{ notif.type }}" data-id="{{ notif.id }}">
+                                    <div class="notif-icon {{ notif.type|lower }}"></div>
+                                    <div class="notif-content">
+                                        <p class="notif-text"><strong>{{ notif.user }}</strong> posted a new <strong>{{ notif.type }}</strong></p>
+                                        <span class="notif-info">{{ notif.content }}</span>
+                                        <span class="notification-time">{{ notif.created_at|date:"M d, g:i A" }}</span>
+                                    </div>
+                                    {% if not notif.is_read %}
+                                        <div class="unread-dot"></div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="notif-empty">No recent activities</div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
                 <div class="user-profile">
                     <div class="profile-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     </div>
                     <span class="user-greeting">Hi, {{ user.username }}!</span>
                     <div class="profile-dropdown">
-                        {% if user.is_staff %}
-                            <a href="{% url 'activity_feed' %}" class="dropdown-item">Activity Feed</a>
-                        {% endif %}
                         <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
                     </div>
                 </div>

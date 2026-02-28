@@ -3,12 +3,14 @@
 .dashboard-wrap {
   width: 90%;
   max-width: 900px;
-  background: var(--white);
+  background: var(--glass-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
   padding: 50px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-lg);
+  border-radius: 40px;
+  box-shadow: var(--shadow-xl);
   margin: 60px auto;
-  border: 1px solid rgba(128, 0, 0, 0.1);
+  border: 1px solid var(--glass-border);
 }
 
 .dashboard-title {
@@ -22,9 +24,9 @@
 
 .dashboard-divider {
   border: none;
-  border-top: 2px solid var(--primary);
+  border-top: 1px solid var(--primary);
   margin-bottom: 40px;
-  opacity: 0.2;
+  opacity: 0.1;
 }
 
 .status-card {
@@ -77,20 +79,50 @@
 }
 
 .action-card {
-  background-color: var(--white);
-  border: 1px solid rgba(0, 31, 63, 0.1);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 24px;
   padding: 35px 20px;
   text-align: center;
   text-decoration: none;
   color: var(--primary);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 8px 32px 0 rgba(128, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #ff3b30;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 800;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--white);
+  box-shadow: 0 2px 8px rgba(255, 59, 48, 0.4);
+  z-index: 5;
+  animation: badgePop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes badgePop {
+  0% { transform: scale(0); }
+  100% { transform: scale(1); }
 }
 
 .action-card h3 {
@@ -101,8 +133,9 @@
 }
 
 .action-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-10px) scale(1.02);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 15px 45px rgba(128, 0, 0, 0.15);
   border-color: var(--primary);
 }
 

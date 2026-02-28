@@ -11,18 +11,12 @@
     <div class="ratings-container">
         <form method="POST">
             {% csrf_token %}
-            <div class="ratings-header">
-                <div class="ratings-title-wrap">
-                    <div style="display: flex; gap: 5px;">
-                        <span style="color: #c54b4b; font-size: 1.5rem;">★</span>
-                        <span style="color: #c54b4b; font-size: 1.5rem;">★</span>
-                        <span style="color: #c54b4b; font-size: 1.5rem;">★</span>
-                    </div>
-                    <h1>RAITINGS:</h1>
-                </div>
-            </div>
-
             <div class="rating-card">
+                <div class="header-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <h1>Ratings</h1>
+                </div>
+
                 <div class="input-section">
                     <span class="label-text">Select Stall:</span>
                     <div class="stall-select-wrap">
@@ -62,16 +56,16 @@
                     <input type="checkbox" name="is_anonymous">
                     <span>Send Anonymously</span>
                 </label>
-            </div>
 
-            <div class="submit-wrap">
-                <button type="submit" class="submit-btn-large">SUBMIT YOUR RAITINGS!</button>
+                <div class="submit-wrap">
+                    <button type="submit" class="submit-btn-large">SUBMIT YOUR RATINGS!</button>
+                </div>
+
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="{% url 'home' %}" style="color: var(--primary); text-decoration: none; font-weight: 700; font-size: 0.95rem; opacity: 0.8; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">← Back to Dashboard</a>
+                </div>
             </div>
         </form>
-
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="{% url 'home' %}" style="color: var(--primary); text-decoration: none; font-weight: 700;">← Back to DashBoard</a>
-        </div>
     </div>
 {% endblock %}
 

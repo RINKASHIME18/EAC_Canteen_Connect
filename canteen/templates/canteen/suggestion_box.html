@@ -11,26 +11,12 @@
     <div class="suggestion-container">
         <form method="POST">
             {% csrf_token %}
-            <div class="suggestion-header">
-                <div class="header-title-wrap">
-                    <div class="lightbulb-icon">
-                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .5 2.2 1.5 3.1.7.9 1.2 1.7 1.5 2.5h6Z"></path>
-                            <path d="M9 18h6"></path>
-                            <path d="M10 22h4"></path>
-                            <path d="m2 8h2"></path>
-                            <path d="m20 8h2"></path>
-                            <path d="m6.34 3.46.71.71"></path>
-                            <path d="m16.95 16.95.71.71"></path>
-                            <path d="m3.46 16.95.71.71"></path>
-                            <path d="m16.95 3.46.71.71"></path>
-                        </svg>
-                    </div>
-                    <h1>SUGGESTIONS BOX</h1>
-                </div>
-            </div>
-
             <div class="suggestion-card">
+                <div class="header-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .5 2.2 1.5 3.1.7.9 1.2 1.7 1.5 2.5h6Z"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>
+                    <h1>Suggestions Box</h1>
+                </div>
+
                 <div class="input-section">
                     <span class="label-text">Select Stall:</span>
                     <div class="stall-select-wrap">
@@ -54,15 +40,14 @@
                 <div class="input-section">
                     <textarea name="suggestion_text" class="suggestion-area" placeholder="Food Quality:&#10;Service:&#10;&#10;Type your suggestions here..." required></textarea>
                 </div>
-            </div>
+                <div class="submit-wrap">
+                    <button type="submit" class="submit-btn-large">SUBMIT YOUR SUGGESTIONS!</button>
+                </div>
 
-            <div class="submit-wrap">
-                <button type="submit" class="submit-btn-large">SUBMIT YOUR SUGGESTIONS!</button>
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="{% url 'home' %}" class="back-link" style="font-size: 0.95rem; opacity: 0.8; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">← Back to Dashboard</a>
+                </div>
             </div>
         </form>
-
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="{% url 'home' %}" class="back-link">← Back to DashBoard</a>
-        </div>
     </div>
 {% endblock %}

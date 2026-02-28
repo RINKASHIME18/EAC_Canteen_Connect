@@ -39,7 +39,7 @@
                         <div class="activity-meta">
                             <span class="activity-type">{{ activity.type }}</span>
                             <span class="activity-user">by {{ activity.user }}</span>
-                            <span class="activity-time">{{ activity.created_at|timesince }} ago</span>
+                            <span class="activity-time">{{ activity.created_at|date:"M d, Y g:i A" }}</span>
                         </div>
                         <p class="activity-text">{{ activity.content }}</p>
                     </div>
