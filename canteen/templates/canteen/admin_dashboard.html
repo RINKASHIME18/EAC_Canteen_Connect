@@ -1,0 +1,36 @@
+{% extends 'canteen/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'canteen/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrap">
+    <h1 class="dashboard-title">Monitor Dashboard</h1>
+    <hr class="dashboard-divider">
+
+    <div class="action-grid">
+        <a href="{% url 'admin_concerns' %}" class="action-card">
+            <div class="card-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8 a3 3 0 1 1-5.8-1.6"></path></svg>
+            </div>
+            <h3>Monitor Concerns</h3>
+        </a>
+
+        <a href="{% url 'admin_ratings' %}" class="action-card">
+            <div class="card-icon star-group">
+                <span class="star-filled">★</span><span class="star-filled">★</span><span class="star-filled">★</span><span class="star-empty">☆</span><span class="star-empty">☆</span>
+            </div>
+            <h3>Monitor Ratings</h3>
+        </a>
+
+        <a href="{% url 'admin_suggestions' %}" class="action-card">
+            <div class="card-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .5 2.2 1.5 3.1.7.9 1.2 1.7 1.5 2.5h6Z"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>
+            </div>
+            <h3>Monitor Suggestions</h3>
+        </a>
+    </div>
+</div>
+{% endblock %}
