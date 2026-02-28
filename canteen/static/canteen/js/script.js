@@ -40,4 +40,38 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+    if (mobileMenuToggle && mobileNavOverlay) {
+        mobileMenuToggle.addEventListener('click', function() {
+            mobileNavOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+        });
+
+        const closeMenu = function() {
+            mobileNavOverlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        };
+
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', closeMenu);
+        }
+
+        // Close on overlay click
+        mobileNavOverlay.addEventListener('click', function(e) {
+            if (e.target === mobileNavOverlay) {
+                closeMenu();
+            }
+        });
+
+        // Close on link click
+        const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    }
 });

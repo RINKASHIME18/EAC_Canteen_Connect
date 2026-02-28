@@ -9,7 +9,7 @@
   padding: 50px;
   border-radius: 40px;
   box-shadow: var(--shadow-xl);
-  margin: 60px auto;
+  margin: 60px auto 100px;
   border: 1px solid var(--glass-border);
 }
 
@@ -273,10 +273,22 @@
 }
 
 @media (max-width: 768px) {
-  .dashboard-wrap { padding: 30px 20px; margin: 30px auto; }
-  .action-grid { grid-template-columns: 1fr; }
-  .status-card { flex-direction: column; text-align: center; padding: 30px; }
-  .modal-card { padding: 25px; }
+  .dashboard-wrap { padding: 30px 20px; margin: 30px auto 60px; width: 94%; border-radius: 30px; }
+  .dashboard-title { font-size: 2rem; }
+  .status-card { flex-direction: column; text-align: center; padding: 30px 20px; gap: 20px; }
+  .status-content h2 { font-size: 1.6rem; }
+  .status-content p { font-size: 1rem; }
+  .action-grid { grid-template-columns: 1fr; gap: 20px; }
+  .action-card { padding: 30px 20px; }
+  .activity-feed { padding: 20px 10px; }
+  .modal-card { padding: 25px; width: 95%; max-height: 90vh; }
+}
+
+@media (max-width: 480px) {
+  .dashboard-title { font-size: 1.7rem; }
+  .status-card { padding: 25px 15px; }
+  .status-content h2 { font-size: 1.4rem; }
+  .action-card h3 { font-size: 1rem; }
 }
 
 .unread-dot {

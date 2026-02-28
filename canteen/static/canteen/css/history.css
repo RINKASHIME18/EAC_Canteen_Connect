@@ -100,14 +100,40 @@
 
 @media (max-width: 768px) {
     .history-card {
-        padding: 30px 20px;
-        margin: 20px auto;
+        padding: 25px 15px;
+        margin: 20px auto 60px;
         border-radius: 24px;
+        width: 95%;
     }
-    .history-header h1 {
-        font-size: 1.7rem;
+    .header-title {
+        margin-bottom: 25px;
+        justify-content: center;
+    }
+    .header-title h1 {
+        font-size: 1.6rem;
+    }
+    .report-item {
+        padding: 20px 15px;
     }
     .report-item:hover {
         transform: none;
+    }
+    .report-meta {
+        font-size: 0.85rem;
+    }
+    .report-content p {
+        font-size: 1rem;
+    }
+    .status-badge {
+        padding: 6px 15px;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .report-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
     }
 }

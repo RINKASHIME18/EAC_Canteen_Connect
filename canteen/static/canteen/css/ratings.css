@@ -202,13 +202,39 @@
     .ratings-container {
         padding: 20px 15px;
     }
-    .ratings-header {
-        flex-direction: column;
-        gap: 20px;
-        text-align: center;
+    .header-title {
+        gap: 15px;
+        margin-bottom: 25px;
+        justify-content: center;
+    }
+    .header-title h1 {
+        font-size: 1.6rem;
+    }
+    .header-title svg {
+        width: 35px;
+        height: 35px;
+    }
+    .rating-card {
+        padding: 30px 20px;
+        border-radius: 24px;
+    }
+    .star-label {
+        font-size: 2.5rem;
     }
     .submit-btn-large {
-        font-size: 1.5rem;
-        width: 100%;
+        font-size: 1.1rem;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .star-label {
+        font-size: 2rem;
+    }
+    .rating-subtext {
+        font-size: 1rem;
+    }
+    .label-text {
+        font-size: 1.1rem;
     }
 }

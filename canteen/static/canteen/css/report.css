@@ -161,19 +161,16 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    .submit-btn {
-        grid-column: span 1;
-        font-size: 1.2rem;
-        padding: 15px 30px;
-    }
     .report-card {
         padding: 30px 20px;
         margin: 20px auto;
         border-radius: 24px;
+        width: 95%;
+    }
+    .header-title {
+        gap: 15px;
+        margin-bottom: 25px;
+        justify-content: center;
     }
     .header-title h1 {
         font-size: 1.6rem;
@@ -181,5 +178,29 @@ input:checked + .slider:before {
     .header-title svg {
         width: 35px;
         height: 35px;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    .input-field {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+    textarea.input-field {
+        min-height: 150px;
+    }
+    .submit-btn {
+        grid-column: span 1;
+        font-size: 1.1rem;
+        padding: 15px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .toggle-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
     }
 }

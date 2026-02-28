@@ -176,25 +176,42 @@
 }
 
 @media (max-width: 768px) {
-    .header-title-wrap h1 {
-        font-size: 1.7rem;
+    .suggestion-container {
+        padding: 20px 15px;
     }
-    .lightbulb-icon svg {
-        width: 45px;
-        height: 45px;
+    .header-title {
+        gap: 15px;
+        margin-bottom: 25px;
+        justify-content: center;
+    }
+    .header-title h1 {
+        font-size: 1.6rem;
+    }
+    .header-title svg {
+        width: 35px;
+        height: 35px;
     }
     .suggestion-card {
         padding: 25px 20px;
+        border-radius: 24px;
     }
     .idea-banner {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         padding: 15px 20px;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
     }
     .arrow-down {
         width: 30px;
         height: 30px;
     }
+    .suggestion-area {
+        min-height: 150px;
+        font-size: 1rem;
+    }
     .submit-btn-large {
         font-size: 1.1rem;
+        padding: 18px;
     }
 }
