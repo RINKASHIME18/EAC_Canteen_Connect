@@ -43,37 +43,5 @@
             </a>
         </div>
 
-        {% if user.is_staff %}
-        <div class="activity-feed">
-            <h3>RECENT ACTIVITY FEED:</h3>
-            <div class="feed-content">
-                {% if activities %}
-                    {% for activity in activities %}
-                    <div class="activity-item">
-                        <div class="activity-icon-wrap {{ activity.type|lower }}">
-                            {% if activity.icon == 'alert-circle' %}
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                            {% elif activity.icon == 'star' %}
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                            {% elif activity.icon == 'lightbulb' %}
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"></path></svg>
-                            {% endif %}
-                        </div>
-                        <div class="activity-info">
-                            <div class="activity-meta">
-                                <span class="activity-type">{{ activity.type }}</span>
-                                <span class="activity-user">by {{ activity.user }}</span>
-                                <span class="activity-time">{{ activity.created_at|timesince }} ago</span>
-                            </div>
-                            <p class="activity-text">{{ activity.content }}</p>
-                        </div>
-                    </div>
-                    {% endfor %}
-                {% else %}
-                    <p style="text-align: center; color: var(--text-muted); padding: 20px;">No recent activity to show.</p>
-                {% endif %}
-            </div>
-        </div>
-        {% endif %}
     </div>
 {% endblock %}

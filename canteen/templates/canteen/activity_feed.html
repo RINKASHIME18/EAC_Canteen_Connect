@@ -1,0 +1,149 @@
+{% extends 'canteen/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'canteen/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrap">
+    <h1 class="dashboard-title">Recent Activity Feed</h1>
+    <hr class="dashboard-divider">
+
+    <div class="activity-feed" style="margin-top: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        <h3>ALL RECENT ACTIVITIES:</h3>
+        <div class="feed-content">
+            {% if activities %}
+                {% for activity in activities %}
+                <div id="activity-{{ activity.type }}-{{ activity.id }}" 
+                     class="activity-item" 
+                     data-type="{{ activity.type }}"
+                     data-id="{{ activity.id }}"
+                     data-content="{{ activity.full_content }}"
+                     data-meta="{{ activity.meta }}"
+                     data-read="{{ activity.is_read|yesno:'true,false' }}"
+                     onclick="handleActivityClick(this)">
+                    {% if not activity.is_read %}
+                        <div class="unread-dot"></div>
+                    {% endif %}
+                    <div class="activity-icon-wrap {{ activity.type|lower }}">
+                        {% if activity.icon == 'alert-circle' %}
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        {% elif activity.icon == 'star' %}
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                        {% elif activity.icon == 'lightbulb' %}
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"></path></svg>
+                        {% endif %}
+                    </div>
+                    <div class="activity-info">
+                        <div class="activity-meta">
+                            <span class="activity-type">{{ activity.type }}</span>
+                            <span class="activity-user">by {{ activity.user }}</span>
+                            <span class="activity-time">{{ activity.created_at|timesince }} ago</span>
+                        </div>
+                        <p class="activity-text">{{ activity.content }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; color: var(--text-muted); padding: 40px;">No recent activity to show.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div style="margin-top: 30px; text-align: center;">
+        <a href="{% url 'home' %}" class="action-card" style="display: inline-flex; width: auto; padding: 10px 25px; min-height: auto; flex-direction: row; gap: 10px; align-items: center;">
+            <div class="card-icon" style="margin-bottom: 0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+            <h3 style="margin: 0; font-size: 1rem;">Back to Dashboard</h3>
+        </a>
+    </div>
+</div>
+
+<!-- Activity Detail Modal -->
+<div id="activityModal" class="modal-overlay" onclick="closeActivityModal(event)">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-close" onclick="closeActivityModal(event)">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </div>
+        <div class="modal-header">
+            <div id="modalIcon" class="activity-icon-wrap"></div>
+            <div id="modalType" class="modal-type"></div>
+        </div>
+        <div id="modalBody" class="modal-body"></div>
+        <div id="modalFooter" class="modal-footer"></div>
+    </div>
+</div>
+
+<script>
+function handleActivityClick(element) {
+    const type = element.getAttribute('data-type');
+    const id = element.getAttribute('data-id');
+    const content = element.getAttribute('data-content');
+    const meta = element.getAttribute('data-meta');
+    const isRead = element.getAttribute('data-read') === 'true';
+
+    showActivityDetails(type, id, content, meta, isRead);
+}
+
+function showActivityDetails(type, id, content, meta, isRead) {
+    const modal = document.getElementById('activityModal');
+    const modalType = document.getElementById('modalType');
+    const modalBody = document.getElementById('modalBody');
+    const modalFooter = document.getElementById('modalFooter');
+    const modalIcon = document.getElementById('modalIcon');
+
+    modalType.innerText = type;
+    modalBody.innerText = content;
+    modalFooter.innerText = meta;
+    
+    // Set icon and class based on type
+    modalIcon.className = 'activity-icon-wrap ' + type.toLowerCase();
+    
+    // Simple icon mapping
+    let iconHtml = '';
+    if (type === 'Concern') {
+        iconHtml = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+    } else if (type === 'Rating') {
+        iconHtml = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>';
+    } else {
+        iconHtml = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"></path></svg>';
+    }
+    modalIcon.innerHTML = iconHtml;
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden'; 
+
+    // Mark as read if it's currently unread
+    if (!isRead) {
+        fetch(`/activity/read/${type}/${id}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Update UI
+                    const item = document.getElementById(`activity-${type}-${id}`);
+                    const dot = item.querySelector('.unread-dot');
+                    if (dot) dot.remove();
+                    
+                    // Update the data attribute to prevent re-firing the fetch
+                    item.setAttribute('data-read', 'true');
+                }
+            });
+    }
+}
+
+function closeActivityModal(event) {
+    const modal = document.getElementById('activityModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === "Escape") {
+        closeActivityModal();
+    }
+});
+</script>
+{% endblock %}

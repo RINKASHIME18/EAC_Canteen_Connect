@@ -8,41 +8,82 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    activities = []
-    if request.user.is_staff:
-        reports = list(Report.objects.order_by('-created_at')[:10])
-        ratings = list(Rating.objects.order_by('-created_at')[:10])
-        suggestions = list(Suggestion.objects.order_by('-created_at')[:10])
-        
-        for r in reports:
-            activities.append({
-                'type': 'Concern',
-                'user': 'Anonymous' if r.is_anonymous else r.user.username,
-                'content': f"For {r.stall}: {r.concern_text[:100]}" + ('...' if len(r.concern_text) > 100 else ''),
-                'created_at': r.created_at,
-                'icon': 'alert-circle'
-            })
-        for r in ratings:
-            activities.append({
-                'type': 'Rating',
-                'user': 'Anonymous' if r.is_anonymous or not r.user else r.user.username,
-                'content': f"{r.rating} stars for {r.stall}: {r.feedback[:50]}...",
-                'created_at': r.created_at,
-                'icon': 'star'
-            })
-        for s in suggestions:
-            activities.append({
-                'type': 'Suggestion',
-                'user': s.user.username if s.user else 'Anonymous',
-                'content': f"For {s.stall}: {s.suggestion_text[:100]}...",
-                'created_at': s.created_at,
-                'icon': 'lightbulb'
-            })
-            
-        activities.sort(key=lambda x: x['created_at'], reverse=True)
-        activities = activities[:10]
+    return render(request, 'canteen/home.html')
 
-    return render(request, 'canteen/home.html', {'activities': activities})
+@login_required
+def activity_feed(request):
+    if not request.user.is_staff:
+        messages.error(request, "Access denied. Admins only.")
+        return redirect('home')
+        
+    activities = []
+    reports = list(Report.objects.order_by('-created_at')[:20])
+    ratings = list(Rating.objects.order_by('-created_at')[:20])
+    suggestions = list(Suggestion.objects.order_by('-created_at')[:20])
+    
+    for r in reports:
+        activities.append({
+            'id': r.id,
+            'type': 'Concern',
+            'user': 'Anonymous' if r.is_anonymous else r.user.username,
+            'content': f"For {r.stall}: {r.concern_text[:100]}" + ('...' if len(r.concern_text) > 100 else ''),
+            'full_content': f"Concern for {r.stall}:\n\n{r.concern_text}",
+            'is_read': r.is_read,
+            'created_at': r.created_at,
+            'icon': 'alert-circle',
+            'meta': f"Reported by: {'Anonymous' if r.is_anonymous else r.user.username} | Section: {r.grade_section or 'N/A'} | Posted on: {r.created_at.strftime('%b %d, %Y %I:%M %p')}"
+        })
+    for r in ratings:
+        activities.append({
+            'id': r.id,
+            'type': 'Rating',
+            'user': 'Anonymous' if r.is_anonymous or not r.user else r.user.username,
+            'content': f"{r.rating} stars for {r.stall}: {r.feedback[:100]}...",
+            'full_content': f"Rating for {r.stall}:\n\nRating: {r.rating} Stars\nFood: {r.food_name or 'N/A'}\n\nFeedback: {r.feedback}",
+            'is_read': r.is_read,
+            'created_at': r.created_at,
+            'icon': 'star',
+            'meta': f"Rated by: {'Anonymous' if r.is_anonymous or not r.user else r.user.username} | Posted on: {r.created_at.strftime('%b %d, %Y %I:%M %p')}"
+        })
+    for s in suggestions:
+        activities.append({
+            'id': s.id,
+            'type': 'Suggestion',
+            'user': s.user.username if s.user else 'Anonymous',
+            'content': f"For {s.stall}: {s.suggestion_text[:100]}...",
+            'full_content': f"Suggestion for {s.stall}:\n\n{s.suggestion_text}",
+            'is_read': s.is_read,
+            'created_at': s.created_at,
+            'icon': 'lightbulb',
+            'meta': f"Suggested by: {s.user.username if s.user else 'Anonymous'} | Posted on: {s.created_at.strftime('%b %d, %Y %I:%M %p')}"
+        })
+        
+    activities.sort(key=lambda x: x['created_at'], reverse=True)
+    activities = activities[:50]  # Show more on the dedicated page
+
+    return render(request, 'canteen/activity_feed.html', {'activities': activities})
+
+from django.http import JsonResponse
+@login_required
+def mark_activity_read(request, activity_type, activity_id):
+    if not request.user.is_staff:
+        return JsonResponse({'status': 'error', 'message': 'Permission denied'}, status=403)
+    
+    try:
+        if activity_type == 'Concern':
+            item = Report.objects.get(id=activity_id)
+        elif activity_type == 'Rating':
+            item = Rating.objects.get(id=activity_id)
+        elif activity_type == 'Suggestion':
+            item = Suggestion.objects.get(id=activity_id)
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid type'}, status=400)
+        
+        item.is_read = True
+        item.save()
+        return JsonResponse({'status': 'success'})
+    except (Report.DoesNotExist, Rating.DoesNotExist, Suggestion.DoesNotExist):
+        return JsonResponse({'status': 'error', 'message': 'Item not found'}, status=404)
 
 @login_required
 def suggestion_view(request):

@@ -29,6 +29,9 @@
                     </div>
                     <span class="user-greeting">Hi, {{ user.username }}!</span>
                     <div class="profile-dropdown">
+                        {% if user.is_staff %}
+                            <a href="{% url 'activity_feed' %}" class="dropdown-item">Activity Feed</a>
+                        {% endif %}
                         <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
                     </div>
                 </div>

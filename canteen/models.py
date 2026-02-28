@@ -56,6 +56,7 @@ class Report(models.Model):
     is_anonymous = models.BooleanField(default=False)
     concern_text = models.TextField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Received')
+    is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -69,6 +70,7 @@ class Rating(models.Model):
     food_name = models.CharField(max_length=200)
     feedback = models.TextField()
     is_anonymous = models.BooleanField(default=False)
+    is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -78,6 +80,7 @@ class Suggestion(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='suggestions', null=True, blank=True)
     stall = models.CharField(max_length=100, choices=STALL_CHOICES)
     suggestion_text = models.TextField()
+    is_read = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
